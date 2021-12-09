@@ -37,13 +37,15 @@ est_dans('Ile de la Cité', premier).
 est_dans('rue des Pyrénées', toulouse).
 
 est_dans_ville(X,Y):-
-    (habite(X,_,Y);(habite(X,_,A),est_dans(A,Y))),ville(Y,_).
+    habite(X,_,Y).
+est_dans_ville(X,Y):-
+    habite(X,_,A),est_dans(A,Y),ville(Y,_).
 
 etu_Grand_Est(X):-est_dans_ville(X,Y),ville(Y,'Grand Est').
 
-meme_ville(X,Y):-est_dans_ville(X,Z),est_dans_ville(Y,Z).
+meme_ville(X,Y):-est_dans_ville(X,Z),est_dans_ville(Y,Z),X\==Y.
 
-meme_region(X,Y):- est_dans_ville(X,Z),est_dans_ville(Y,P),ville(P,S),ville(Z,S).
+meme_region(X,Y):- est_dans_ville(X,Z),est_dans_ville(Y,P),ville(P,S),ville(Z,S),X\==Y.
 
 
 longeur([], 0).
